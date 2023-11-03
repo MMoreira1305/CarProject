@@ -1,8 +1,6 @@
 package com.carproject.backend.model;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 // Modelo de carro
@@ -11,11 +9,13 @@ import lombok.*;
 @EqualsAndHashCode
 @Setter
 @Getter
+@Entity
 public class Car {
 
-    @Id
-    private String plate;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    private String plate;
     private Long odometer;
     private String color;
     private Double price;

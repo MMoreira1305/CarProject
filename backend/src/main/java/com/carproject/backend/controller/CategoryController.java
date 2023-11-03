@@ -1,26 +1,35 @@
 package com.carproject.backend.controller;
 
+import com.carproject.backend.model.Category;
+import com.carproject.backend.serv.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/category")
+@RestController
+@RequestMapping("/category")
 public class CategoryController {
+
+    @Autowired
+    CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity getAllCategories(){
-        List<String> categories = new ArrayList<>();
-        categories.add("SUV");
-        categories.add("Hatch");
+        List<Category> categories = categoryService.getAll();
 
-        return ResponseEntity.ok(categories);
+        return !categories.isEmpty() ?
+                ResponseEntity.ok(categories) :
+                ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public ResponseEntity postCategory(@RequestBody String nome){
-        return ResponseEntity.ok(nome);
+    public ResponseEntity postCategory(@RequestBody Category category){
+
+        categoryService.post(category);
+        return ResponseEntity.ok(category);
     }
 
     @GetMapping("/{id}")
