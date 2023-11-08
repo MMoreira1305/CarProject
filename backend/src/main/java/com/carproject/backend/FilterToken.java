@@ -23,24 +23,27 @@ public class FilterToken extends OncePerRequestFilter {
     UserRepository usuarioRepository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         String token;
 
         var authorizationHeader = request.getHeader("Authorization");
 
-        if ((authorizationHeader != null)){
+        if (authorizationHeader != null) {
             token = authorizationHeader.replace("Bearer ", "");
             var subject = this.tokenService.getSubject(token);
 
-            var usuario = this.usuarioRepository.findByLogin(subject);
+            if (subject != null) {
+                var usuario = this.usuarioRepository.findByLogin(subject);
 
-            if(usuario.isPresent()){
-                var authentication = new UsernamePasswordAuthenticationToken(usuario,
-                        null, usuario.get().getAuthorities());
+                if (usuario.isPresent()) {
+                    var authentication = new UsernamePasswordAuthenticationToken(usuario.orElse(null),
+                            null, usuario.get().getAuthorities());
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                } else {
+                    throw new IllegalArgumentException("Usuário não encontrado");
+                }
             }
         }
 

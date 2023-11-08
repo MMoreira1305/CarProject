@@ -1,5 +1,9 @@
 package com.carproject.backend.controller;
 
+import com.carproject.backend.model.LevelAccess;
+import com.carproject.backend.repo.LevelAccessRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -17,14 +21,37 @@ import com.carproject.backend.serv.UserService;
 @RequestMapping("/users")
 public class UserController {
 
+    @Autowired
+    LevelAccessRepository levelAccessRepository;
+
+    @Autowired
+    UserService userService;
+
     @GetMapping("/{username}")
     public String getUser(@PathVariable String username) {
         return username;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity setUser(@RequestBody User user) {
-        var userDTO = new UserService().post(user);
+        Long levelAccessId = user.getNivelAcesso().getId();
+        LevelAccess levelAccess = levelAccessRepository.findById(levelAccessId)
+                .orElseThrow(() -> new IllegalArgumentException("LevelAccess não encontrado com o ID: " + levelAccessId));
+
+        user.setNivelAcesso(levelAccess); // Define o LevelAccess no User
+
+        var userDTO = userService.post(user);
         return ResponseEntity.ok(userDTO);
+    }
+
+    @PostMapping("/nivelAcesso")
+    public ResponseEntity setAccessLevel(@RequestBody LevelAccess levelAccess){
+        levelAccessRepository.save(levelAccess);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/nivelAcesso")
+    public ResponseEntity getAccessLevel(){
+        return ResponseEntity.ok(levelAccessRepository.findAll());
     }
 }

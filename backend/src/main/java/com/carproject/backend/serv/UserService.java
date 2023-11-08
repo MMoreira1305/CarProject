@@ -25,7 +25,7 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public List<UserDTO> getAll() {
         List<User> users = userRepository.findAll();
@@ -39,13 +39,13 @@ public class UserService {
         return usersDTO;
     }
 
-    public ResponseEntity verifyUser(User user) {
-        var verifyUser = this.userRepository.findByLogin(user.getLogin());
+    public User verifyUser(User user) {
+        Optional<User> verifyUser = userRepository.findByLogin(user.getLogin());
 
-        if (verifyUser != null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: User Already exists!!");
+        if (verifyUser.isPresent()) {
+            throw new IllegalArgumentException("Usuário já cadastrado");
         }
-        return ResponseEntity.status(HttpStatus.OK).body("User registered successfully");
+        return user;
     }
 
     public UserDTO post(User user) {
@@ -71,16 +71,7 @@ public class UserService {
 
     }
 
-    public ResponseEntity getByLogin(String login) {
-        Assert.notNull(login, "Não foi possível atualizar o registro pois não foi passado a placa");
-        Optional<User> user = userRepository.findByLogin(login);
 
-        if (user.isPresent()) {
-            UserDTO userDTO = new UserDTO(user.get());
-            return ResponseEntity.ok(userDTO);
-        }
-        return ResponseEntity.notFound().build();
-    }
 
     public ResponseEntity getByName(String name) {
         Assert.notNull(name, "Não foi possível atualizar o registro pois não foi passado o nome");

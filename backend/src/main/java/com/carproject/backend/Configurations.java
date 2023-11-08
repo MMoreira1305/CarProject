@@ -30,6 +30,9 @@ public class Configurations {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/users").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/users/nivelAcesso").permitAll();
+                    req.requestMatchers(HttpMethod.GET, "/users/nivelAcesso").permitAll();
                     req.requestMatchers(HttpMethod.GET, "/home").permitAll();
                     req.anyRequest().authenticated();
                 })
