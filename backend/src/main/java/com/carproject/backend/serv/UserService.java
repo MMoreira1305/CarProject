@@ -40,9 +40,10 @@ public class UserService {
     }
 
     public User verifyUser(User user) {
-        Optional<User> verifyUser = userRepository.findByLogin(user.getLogin());
+        Optional<User> verifyUsername = userRepository.findByLogin(user.getLogin());
+        Optional<User> verifyEmail = userRepository.findByEmail(user.getEmail());
 
-        if (verifyUser.isPresent()) {
+        if (verifyUsername.isPresent() || verifyEmail.isPresent()) {
             throw new IllegalArgumentException("Usuário já cadastrado");
         }
         return user;
@@ -70,8 +71,6 @@ public class UserService {
         return ResponseEntity.notFound().build();
 
     }
-
-
 
     public ResponseEntity getByName(String name) {
         Assert.notNull(name, "Não foi possível atualizar o registro pois não foi passado o nome");
