@@ -28,6 +28,12 @@ public class CarController {
         return ResponseEntity.ok(carDTO);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        carService.delete(id);
+        return ResponseEntity.ok("ok");
+    }
+
 
 
     @GetMapping("/{id}")
@@ -53,11 +59,5 @@ public class CarController {
         return carDTO != null ?
                 ResponseEntity.ok(carDTO) :
                 ResponseEntity.notFound().build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteProduct(@PathVariable Long id){
-        carService.delete(id);
-        return ResponseEntity.ok().build();
     }
 }

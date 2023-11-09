@@ -2,6 +2,7 @@ package com.carproject.backend.serv;
 
 import com.carproject.backend.dto.CarDTO;
 import com.carproject.backend.model.Car;
+import com.carproject.backend.model.Document;
 import com.carproject.backend.repo.BrandRepository;
 import com.carproject.backend.repo.CarRepository;
 import com.carproject.backend.repo.CategoryRepository;
@@ -10,11 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CarService {
+
+    @Autowired
+    DocumentService documentService;
 
     @Autowired
     CarRepository carRepository;
@@ -31,9 +40,29 @@ public class CarService {
     }
 
     public CarDTO post(Car car){
-        carRepository.save(car);
-        CarDTO carDTO = new CarDTO(car, brandRepository, categoryRepository);
-        return carDTO;
+        try{
+            carRepository.save(car);
+            CarDTO carDTO = new CarDTO(car, brandRepository, categoryRepository);
+            Optional<Car> carOptional = carRepository.findByPlate(car.getPlate());
+
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            Calendar cal = Calendar.getInstance();
+            Date date = cal.getTime();
+            String todaysdate = dateFormat.format(date);
+
+            SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
+            LocalDateTime localDateTime = LocalDateTime.now();
+            String horaAtual = dateFormat.format(localDateTime);
+            Document document = new Document(null, carOptional.get(), todaysdate, horaAtual, "CRIADO", car.getQuantity());
+
+
+
+            documentService.post(document);
+            return carDTO;
+        }catch (RuntimeException e){
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
 
     public ResponseEntity getById(Long id){
@@ -75,9 +104,35 @@ public class CarService {
 
         Optional<Car> carInDBA = carRepository.findById(id);
 
+
+
         if (carInDBA.isPresent()){
             car.setId(carInDBA.get().getId());
             post(car);
+
+            Optional<Car> carOptional = carRepository.findById(id);
+
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            Calendar cal = Calendar.getInstance();
+            Date date = cal.getTime();
+            String todaysdate = dateFormat.format(date);
+
+            SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
+            Calendar calHour = Calendar.getInstance();
+            Date dateHour = cal.getTime();
+            String horaAtual = dateFormat.format(date);
+
+            if(car.getQuantity() < carInDBA.get().getQuantity()){
+                int moviment = carInDBA.get().getQuantity() - car.getQuantity();
+                Document document = new Document(carOptional.get(), todaysdate, horaAtual , "RETIRADA", moviment);
+                documentService.post(document);
+            }else if(car.getQuantity() > carInDBA.get().getQuantity()){
+                int moviment = car.getQuantity() - carInDBA.get().getQuantity();
+                Document document = new Document(carOptional.get(), todaysdate, horaAtual , "ENTRADA", moviment);
+                documentService.post(document);
+            }
+
+
             CarDTO carDTO = new CarDTO(car, brandRepository, categoryRepository);
 
             return carDTO;
@@ -88,6 +143,7 @@ public class CarService {
     }
 
     public void delete(Long id){
+
         carRepository.deleteById(id);
     }
 }

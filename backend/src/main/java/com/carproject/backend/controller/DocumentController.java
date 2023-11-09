@@ -1,5 +1,7 @@
 package com.carproject.backend.controller;
 
+import com.carproject.backend.serv.DocumentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +12,12 @@ import java.util.List;
 @RequestMapping("/document")
 public class DocumentController {
 
+    @Autowired
+    DocumentService documentService;
+
     @GetMapping
     public ResponseEntity getAllDocuments(){
-        List<String> documents = new ArrayList<>();
-        documents.add("SUV");
-        documents.add("Hatch");
-
-        return ResponseEntity.ok(documents);
+        return ResponseEntity.ok(documentService.getAll());
     }
 
     @PostMapping
@@ -26,6 +27,13 @@ public class DocumentController {
 
     @GetMapping("/{id}")
     public ResponseEntity getDocument(@PathVariable Long id){
-        return ResponseEntity.ok(id);
+
+        return ResponseEntity.ok(documentService.getById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        documentService.delete(id);
+        return ResponseEntity.ok("Ok");
     }
 }

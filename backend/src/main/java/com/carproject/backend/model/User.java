@@ -1,6 +1,8 @@
 package com.carproject.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,11 +21,21 @@ public class User implements UserDetails{
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @NotNull
     private String login;
+
+    @NotNull
     private String password;
 
+    @NotNull
+    @Email(message = "O email deve ser válido!")
     private String email;
+
+    @NotNull
     private String telefone;
+
+    @NotNull
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)

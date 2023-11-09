@@ -1,18 +1,12 @@
 package com.carproject.backend.serv;
 
-import com.carproject.backend.dto.CarDTO;
 import com.carproject.backend.dto.UserDTO;
-import com.carproject.backend.model.Car;
 import com.carproject.backend.model.User;
-import com.carproject.backend.repo.BrandRepository;
-import com.carproject.backend.repo.CarRepository;
-import com.carproject.backend.repo.CategoryRepository;
 import com.carproject.backend.repo.UserRepository;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;

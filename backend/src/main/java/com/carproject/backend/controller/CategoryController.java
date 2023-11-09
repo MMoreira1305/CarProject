@@ -20,9 +20,7 @@ public class CategoryController {
     public ResponseEntity getAllCategories(){
         List<Category> categories = categoryService.getAll();
 
-        return !categories.isEmpty() ?
-                ResponseEntity.ok(categories) :
-                ResponseEntity.notFound().build();
+        return ResponseEntity.ok(categories);
     }
 
     @PostMapping
@@ -34,11 +32,12 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity getCategory(@PathVariable Long id){
-        return ResponseEntity.ok(id);
+        return categoryService.getById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity putCategory(@PathVariable Long id){
-        return ResponseEntity.ok(id);
+    public ResponseEntity putCategory(@PathVariable Long id, @RequestBody Category category){
+        Category newCategory = categoryService.updateCategory(id, category);
+        return ResponseEntity.ok(newCategory);
     }
 }

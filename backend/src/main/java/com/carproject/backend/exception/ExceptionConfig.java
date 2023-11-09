@@ -1,5 +1,7 @@
 package com.carproject.backend.exception;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.io.Serializable;
@@ -37,6 +40,20 @@ public class ExceptionConfig extends ResponseEntityExceptionHandler {
     })
     public ResponseEntity<?> errorAcessDenied(Exception exception) {
         return new ResponseEntity<>("Acesso negado para seu usuário" , HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler({
+            TokenExpiredException.class
+    })
+    public ResponseEntity<?> tokenExperired(Exception exception) {
+        return new ResponseEntity<>("Your token expired", HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler({
+            EntityNotFoundException.class
+    })
+    public ResponseEntity<?> tratarErro404() {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Override

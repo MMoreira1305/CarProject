@@ -3,7 +3,6 @@ package com.carproject.backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,10 +19,17 @@ public class Document {
     @JoinColumn(name = "id_car")
     private Car car;
 
-    private Date date;
+    private String date;
 
     private String hour;
     private String moviment_type;
-    private Long quantity;
-    private Double total;
+    private int quantity;
+
+    public Document(Car car, String date, String hour, String moviment_type, int quantity){
+        this.car = car;
+        this.date = date;
+        this.hour = hour;
+        this.moviment_type = moviment_type;
+        this.quantity = quantity;
+    }
 }
