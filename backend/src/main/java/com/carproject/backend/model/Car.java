@@ -34,6 +34,9 @@ public class Car {
     @NotNull
     private String name;
 
+    @NotNull
+    private String situation;
+
     @ManyToOne
     @JoinColumn(name = "id_brand")
     private Brand brand;

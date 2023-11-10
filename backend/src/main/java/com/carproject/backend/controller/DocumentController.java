@@ -3,6 +3,7 @@ package com.carproject.backend.controller;
 import com.carproject.backend.serv.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class DocumentController {
         return ResponseEntity.ok(documentService.getAll());
     }
 
+    @Secured(value = "admin")
     @PostMapping
     public ResponseEntity postDocument(@RequestBody String nome){
         return ResponseEntity.ok(nome);

@@ -41,12 +41,12 @@ public class CarController {
         return carService.getById(id);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/findName/{name}")
     public ResponseEntity getByName(@PathVariable String name){
         return carService.getByName(name);
     }
 
-    @GetMapping("/{plate}")
+    @GetMapping("/findPlate/{plate}")
     public ResponseEntity getByPlate(@PathVariable String plate){
 
         return carService.getByPlate(plate);

@@ -7,6 +7,7 @@ import org.springframework.boot.context.config.ConfigDataResourceNotFoundExcepti
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,7 @@ public class UserController {
         return username;
     }
 
+    @Secured(value = "admin")
     @PostMapping
     public ResponseEntity setUser(@RequestBody User user) {
         Long levelAccessId = user.getNivelAcesso().getId();
@@ -44,12 +46,14 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
+    @Secured(value = "admin")
     @PostMapping("/nivelAcesso")
     public ResponseEntity setAccessLevel(@RequestBody LevelAccess levelAccess){
         levelAccessRepository.save(levelAccess);
         return ResponseEntity.ok().build();
     }
 
+    @Secured(value = "admin")
     @GetMapping("/nivelAcesso")
     public ResponseEntity getAccessLevel(){
         return ResponseEntity.ok(levelAccessRepository.findAll());

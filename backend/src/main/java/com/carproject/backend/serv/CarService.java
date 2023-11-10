@@ -42,7 +42,10 @@ public class CarService {
     public CarDTO post(Car car){
         try{
             carRepository.save(car);
+            System.out.println("CHEGOU AQUI");
             CarDTO carDTO = new CarDTO(car, brandRepository, categoryRepository);
+
+            System.out.println("CHEGOU AQUI");
             Optional<Car> carOptional = carRepository.findByPlate(car.getPlate());
 
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -50,13 +53,11 @@ public class CarService {
             Date date = cal.getTime();
             String todaysdate = dateFormat.format(date);
 
-            SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
-            LocalDateTime localDateTime = LocalDateTime.now();
-            String horaAtual = dateFormat.format(localDateTime);
-            Document document = new Document(null, carOptional.get(), todaysdate, horaAtual, "CRIADO", car.getQuantity());
-
-
-
+            Date horaAtual = new Date();
+            // Formata a hora atual como uma string
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+            String horaAtualString = format.format(horaAtual);
+            Document document = new Document(null, carOptional.get(), todaysdate, horaAtualString, "ATIVADO", car.getQuantity());
             documentService.post(document);
             return carDTO;
         }catch (RuntimeException e){
@@ -138,12 +139,33 @@ public class CarService {
             return carDTO;
         }
         else {
-            throw new RuntimeException("Não foi possível localizar o carro no DBA");
+            throw new IllegalArgumentException();
         }
     }
 
     public void delete(Long id){
+        Optional<Car> carOptional = carRepository.findById(id);
 
-        carRepository.deleteById(id);
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        String todaysdate = dateFormat.format(date);
+
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
+        Calendar calHour = Calendar.getInstance();
+        Date dateHour = cal.getTime();
+        String horaAtual = dateFormat.format(date);
+
+        if(carOptional.isPresent()){
+            Car car = carOptional.get();
+            car.setSituation("INATIVO");
+
+            Document document = new Document(null, car, todaysdate, horaAtual, "INATIVADO", car.getQuantity());
+            documentService.post(document);
+        }
+
+        else {
+            throw new IllegalArgumentException("Id não encontrado");
+        }
     }
 }

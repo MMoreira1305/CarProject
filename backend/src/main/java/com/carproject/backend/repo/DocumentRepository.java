@@ -13,4 +13,5 @@ public interface DocumentRepository extends CrudRepository<Document, Long> {
     List<Document> findAll();
 
     Optional<Document> findById(Long id);
+    void deleteById(Long id);
 }
