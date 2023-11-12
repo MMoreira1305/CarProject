@@ -1,8 +1,6 @@
 package com.carproject.backend.serv;
 
-import com.carproject.backend.model.Category;
 import com.carproject.backend.model.LevelAccess;
-import com.carproject.backend.repo.CategoryRepository;
 import com.carproject.backend.repo.LevelAccessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +9,6 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 
 @Service
 public class LevelAcessService {

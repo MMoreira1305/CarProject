@@ -16,7 +16,19 @@ public class CarController {
     @Autowired
     CarService carService;
 
-    @GetMapping
+    @GetMapping("/active")
+    public ResponseEntity getAllProductsActives(){
+        List<Car> cars = carService.getAllActives();
+        return ResponseEntity.ok(cars);
+    }
+
+    @GetMapping("/inactive")
+    public ResponseEntity getAllProductsInactive(){
+        List<Car> cars = carService.getAllInactives();
+        return ResponseEntity.ok(cars);
+    }
+
+    @GetMapping("/inactive")
     public ResponseEntity getAllProducts(){
         List<Car> cars = carService.getAll();
         return ResponseEntity.ok(cars);

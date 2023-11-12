@@ -3,8 +3,6 @@ package com.carproject.backend.controller;
 import com.carproject.backend.model.LevelAccess;
 import com.carproject.backend.repo.LevelAccessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.access.annotation.Secured;

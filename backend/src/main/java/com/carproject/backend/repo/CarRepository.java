@@ -15,4 +15,5 @@ public interface CarRepository extends CrudRepository<Car, Long> {
     Optional<Car> findByName(String nome);
     Optional<Car> findByPlate(String plate);
     List<Car> findAll();
+    List<Car> findBySituation(String situation);
 }

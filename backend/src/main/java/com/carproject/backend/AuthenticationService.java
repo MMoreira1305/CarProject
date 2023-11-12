@@ -1,6 +1,5 @@
 package com.carproject.backend;
 
-import com.carproject.backend.dto.UserDTO;
 import com.carproject.backend.model.User;
 import com.carproject.backend.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

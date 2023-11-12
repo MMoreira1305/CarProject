@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +32,16 @@ public class CarService {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    public List<Car> getAllActives(){
+        List<Car> carros =  carRepository.findBySituation("ATIVO");
+        return carros;
+    }
+
+    public List<Car> getAllInactives(){
+        List<Car> carros =  carRepository.findBySituation("INATIVO");
+        return carros;
+    }
 
     public List<Car> getAll(){
         List<Car> carros =  carRepository.findAll();

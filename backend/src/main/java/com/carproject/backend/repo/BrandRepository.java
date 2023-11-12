@@ -1,7 +1,6 @@
 package com.carproject.backend.repo;
 
 import com.carproject.backend.model.Brand;
-import com.carproject.backend.model.Car;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
