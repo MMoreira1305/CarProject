@@ -1,8 +1,8 @@
-package com.carproject.backend.serv;
+package com.carproject.backend.service;
 
 import com.carproject.backend.dto.UserDTO;
 import com.carproject.backend.model.User;
-import com.carproject.backend.repo.UserRepository;
+import com.carproject.backend.repository.UserRepository;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 

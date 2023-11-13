@@ -2,8 +2,8 @@ package com.carproject.backend.controller;
 
 import com.carproject.backend.dto.Login;
 import com.carproject.backend.model.User;
-import com.carproject.backend.repo.UserRepository;
-import com.carproject.backend.serv.TokenService;
+import com.carproject.backend.repository.UserRepository;
+import com.carproject.backend.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/login")

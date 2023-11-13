@@ -1,7 +1,7 @@
-package com.carproject.backend;
+package com.carproject.backend.configuration;
 
 import com.carproject.backend.model.User;
-import com.carproject.backend.repo.UserRepository;
+import com.carproject.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

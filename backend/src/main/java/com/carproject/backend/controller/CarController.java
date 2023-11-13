@@ -2,7 +2,7 @@ package com.carproject.backend.controller;
 
 import com.carproject.backend.dto.CarDTO;
 import com.carproject.backend.model.Car;
-import com.carproject.backend.serv.CarService;
+import com.carproject.backend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

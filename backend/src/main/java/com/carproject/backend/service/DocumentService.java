@@ -1,7 +1,7 @@
-package com.carproject.backend.serv;
+package com.carproject.backend.service;
 
 import com.carproject.backend.model.Document;
-import com.carproject.backend.repo.DocumentRepository;
+import com.carproject.backend.repository.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

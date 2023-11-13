@@ -1,13 +1,7 @@
 package com.carproject.backend.dto;
 
 import com.carproject.backend.model.*;
-import com.carproject.backend.repo.BrandRepository;
-import com.carproject.backend.repo.CategoryRepository;
-import com.carproject.backend.repo.LevelAccessRepository;
-import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.Optional;
 
 @Data
 public class UserDTO {

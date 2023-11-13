@@ -1,11 +1,11 @@
-package com.carproject.backend.serv;
+package com.carproject.backend.service;
 
 import com.carproject.backend.dto.CarDTO;
 import com.carproject.backend.model.Car;
 import com.carproject.backend.model.Document;
-import com.carproject.backend.repo.BrandRepository;
-import com.carproject.backend.repo.CarRepository;
-import com.carproject.backend.repo.CategoryRepository;
+import com.carproject.backend.repository.BrandRepository;
+import com.carproject.backend.repository.CarRepository;
+import com.carproject.backend.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

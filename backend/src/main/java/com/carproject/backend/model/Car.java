@@ -17,6 +17,9 @@ public class Car {
     private Long id;
 
     @NotNull
+    @Column(
+            columnDefinition = "varchar(9)"
+    )
     private String plate;
 
     @NotNull
@@ -34,7 +37,10 @@ public class Car {
     @NotNull
     private String name;
 
-    @NotNull
+    // Is not necessary varchar(255) because the situation´s name finishs in 7 char.
+    @Column(
+            columnDefinition = "varchar(7) default 'ATIVO'"
+    )
     private String situation;
 
     @ManyToOne

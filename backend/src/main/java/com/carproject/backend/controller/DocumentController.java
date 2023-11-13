@@ -1,6 +1,6 @@
 package com.carproject.backend.controller;
 
-import com.carproject.backend.serv.DocumentService;
+import com.carproject.backend.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;

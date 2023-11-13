@@ -1,7 +1,7 @@
 package com.carproject.backend.controller;
 
 import com.carproject.backend.model.LevelAccess;
-import com.carproject.backend.repo.LevelAccessRepository;
+import com.carproject.backend.repository.LevelAccessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carproject.backend.model.User;
-import com.carproject.backend.serv.UserService;
+import com.carproject.backend.service.UserService;
 
 @RestController
 @RequestMapping("/users")

@@ -1,4 +1,4 @@
-package com.carproject.backend.repo;
+package com.carproject.backend.repository;
 
 import com.carproject.backend.model.Brand;
 import org.springframework.data.repository.CrudRepository;

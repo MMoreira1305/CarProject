@@ -1,7 +1,7 @@
 package com.carproject.backend.controller;
 
 import com.carproject.backend.model.Category;
-import com.carproject.backend.serv.CategoryService;
+import com.carproject.backend.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

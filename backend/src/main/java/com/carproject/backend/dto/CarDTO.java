@@ -3,10 +3,9 @@ package com.carproject.backend.dto;
 import com.carproject.backend.model.Brand;
 import com.carproject.backend.model.Car;
 import com.carproject.backend.model.Category;
-import com.carproject.backend.repo.BrandRepository;
-import com.carproject.backend.repo.CategoryRepository;
+import com.carproject.backend.repository.BrandRepository;
+import com.carproject.backend.repository.CategoryRepository;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 

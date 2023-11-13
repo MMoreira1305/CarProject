@@ -1,7 +1,7 @@
-package com.carproject.backend;
+package com.carproject.backend.configuration;
 
-import com.carproject.backend.repo.UserRepository;
-import com.carproject.backend.serv.TokenService;
+import com.carproject.backend.repository.UserRepository;
+import com.carproject.backend.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

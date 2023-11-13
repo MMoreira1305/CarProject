@@ -1,7 +1,7 @@
 package com.carproject.backend.controller;
 
 import com.carproject.backend.model.Brand;
-import com.carproject.backend.serv.BrandService;
+import com.carproject.backend.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

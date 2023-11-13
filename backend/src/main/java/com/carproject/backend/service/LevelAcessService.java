@@ -1,7 +1,7 @@
-package com.carproject.backend.serv;
+package com.carproject.backend.service;
 
 import com.carproject.backend.model.LevelAccess;
-import com.carproject.backend.repo.LevelAccessRepository;
+import com.carproject.backend.repository.LevelAccessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.carproject.backend.serv;
+package com.carproject.backend.service;
 
 import com.carproject.backend.model.User;
 import org.springframework.stereotype.Service;

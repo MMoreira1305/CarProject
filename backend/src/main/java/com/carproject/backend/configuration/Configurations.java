@@ -1,4 +1,4 @@
-package com.carproject.backend;
+package com.carproject.backend.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
