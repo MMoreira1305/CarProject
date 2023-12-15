@@ -51,10 +51,8 @@ public class CarService {
     public CarDTO post(Car car){
         try{
             carRepository.save(car);
-            System.out.println("CHEGOU AQUI");
             CarDTO carDTO = new CarDTO(car, brandRepository, categoryRepository);
 
-            System.out.println("CHEGOU AQUI");
             Optional<Car> carOptional = carRepository.findByPlate(car.getPlate());
 
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -127,18 +125,18 @@ public class CarService {
             Date date = cal.getTime();
             String todaysdate = dateFormat.format(date);
 
-            SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
-            Calendar calHour = Calendar.getInstance();
-            Date dateHour = cal.getTime();
-            String horaAtual = dateFormat.format(date);
+            Date horaAtual = new Date();
+            // Formata a hora atual como uma string
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+            String horaAtualString = format.format(horaAtual);
 
             if(car.getQuantity() < carInDBA.get().getQuantity()){
                 int moviment = carInDBA.get().getQuantity() - car.getQuantity();
-                Document document = new Document(carOptional.get(), todaysdate, horaAtual , "RETIRADA", moviment);
+                Document document = new Document(carOptional.get(), todaysdate, horaAtualString , "RETIRADA", moviment);
                 documentService.post(document);
             }else if(car.getQuantity() > carInDBA.get().getQuantity()){
                 int moviment = car.getQuantity() - carInDBA.get().getQuantity();
-                Document document = new Document(carOptional.get(), todaysdate, horaAtual , "ENTRADA", moviment);
+                Document document = new Document(carOptional.get(), todaysdate, horaAtualString , "ENTRADA", moviment);
                 documentService.post(document);
             }
 
@@ -160,16 +158,16 @@ public class CarService {
         Date date = cal.getTime();
         String todaysdate = dateFormat.format(date);
 
-        SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
-        Calendar calHour = Calendar.getInstance();
-        Date dateHour = cal.getTime();
-        String horaAtual = dateFormat.format(date);
+        Date horaAtual = new Date();
+        // Formata a hora atual como uma string
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        String horaAtualString = format.format(horaAtual);
 
         if(carOptional.isPresent()){
             Car car = carOptional.get();
             car.setSituation("INATIVO");
 
-            Document document = new Document(null, car, todaysdate, horaAtual, "INATIVADO", car.getQuantity());
+            Document document = new Document(null, car, todaysdate, horaAtualString, "INATIVADO", car.getQuantity());
             documentService.post(document);
         }
 

@@ -28,7 +28,7 @@ public class CarController {
         return ResponseEntity.ok(cars);
     }
 
-    @GetMapping("/inactive")
+    @GetMapping
     public ResponseEntity getAllProducts(){
         List<Car> cars = carService.getAll();
         return ResponseEntity.ok(cars);

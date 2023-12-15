@@ -27,21 +27,14 @@ public class AuthController {
 
     @PostMapping
     public String login(@RequestBody Login login){
-        System.out.println("Chegou aqui");
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(login.login(),
                         login.password());
 
-        System.out.println("Chegou aqui");
-
         Authentication authenticate = this.authenticationManager.
                 authenticate(usernamePasswordAuthenticationToken);
 
-        System.out.println("Chegou aqui");
-
         var usuario = (User) authenticate.getPrincipal();
-
-        System.out.println("Chegou aqui");
 
         return tokenService.gerarToken(usuario);
 
