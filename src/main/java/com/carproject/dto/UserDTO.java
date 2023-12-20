@@ -1,6 +1,6 @@
 package com.carproject.dto;
 
-import com.carproject.CarProject.model.*;
+import com.carproject.model.*;
 import com.carproject.model.User;
 import lombok.Data;
 
